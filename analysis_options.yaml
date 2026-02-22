@@ -1,28 +1,32 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
-linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
-  rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+formatter:
+  page_width: 120 # Maximum line width before wrapping
+  trailing_commas: preserve # Preserve trailing commas in multi-line collections
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+linter:
+  rules:
+    require_trailing_commas: true # Ensure trailing commas in collections for readability
+    prefer_single_quotes: true # Prefer single quotes for strings
+    avoid_print: true # Avoid leaving debug print statements in production
+
+    constant_identifier_names: false # Allow non-UPPER_CASE constants
+    non_constant_identifier_names: false # Allow non-lowerCamelCase variable names
+
+    prefer_const_constructors: true # Use const constructors whenever possible
+    prefer_const_literals_to_create_immutables: true # Prefer const for list/map/set literals
+    prefer_const_declarations: true # Prefer const for variables when possible
+    prefer_const_constructors_in_immutables: true # Prefer const in immutable classes
+
+    avoid_unnecessary_containers: true # Avoid Container widgets when not needed
+    prefer_final_fields: true # Prefer final for class fields when possible
+
+    unnecessary_null_checks: true # Warn about unnecessary null checks
+    unnecessary_lambdas: false # Avoid redundant lambda expressions
+
+analyzer:
+  errors:
+    unnecessary_const: error
+    unnecessary_type_check: error
+    unused_element: error
+    unnecessary_non_null_assertion: error
