@@ -1,17 +1,32 @@
-# dummy_ecommerce
+# 🛒 DummyE-Commerce (Flutter)
 
-A new Flutter project.
+A simple yet well-structured E-commerce module built with Flutter, demonstrating API integration, state management, local persistence, and Clean Architecture principles.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Fetch Products from REST API.
+- Products Grid/List View.
+- Add / Remove Products from Cart (Local storage).
+- Cart Count Badge on AppBar.
+- Loading & Error State Handling.
+- Push Notification Receiving (Bonus).
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter (Dart).
+- State Management - Flutter Bloc.
+- Architecture - CLEAN.
+- Local Storage - Shared Preferences.
+- Push Notification - Firebase Cloud Messaging.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## APK Included for Manual Testing.
+
+## How to Run
+
+1. Clone the repository.
+2. Open the project in your preferred IDE.
+3. Run the app on an emulator or physical device.
+
+## License
+
+MIT License
