@@ -1,8 +1,8 @@
-import '../../../../dependency_handler.dart';
-import '../../domain/entities/cart_entity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../dependency_handler.dart';
+import '../../domain/entities/cart_entity.dart';
 import '../../domain/usecases/add_to_cart_usecase.dart';
 import '../../domain/usecases/clear_cart_usecase.dart';
 import '../../domain/usecases/get_all_cart_item_usecase.dart';

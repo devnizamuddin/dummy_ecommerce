@@ -1,4 +1,4 @@
-import 'package:dummy_ecommerce/core/constant/api_endpoint.dart';
+import '../../../../core/constant/api_endpoint.dart';
 
 import '../../../../core/services/api_communication.dart';
 import '../models/product_model.dart';
