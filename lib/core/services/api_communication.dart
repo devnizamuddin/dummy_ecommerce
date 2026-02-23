@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../constant/app_constant.dart';
+import '../errors/error_handler.dart';
+import '../errors/exception.dart';
 import '../models/api_response.dart';
 
 class ApiCommunication {
@@ -40,15 +42,19 @@ class ApiCommunication {
     required String endpoint,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final response = await _dio.get(
-      endpoint,
-      queryParameters: queryParameters,
-    );
-    return ApiResponse(
-      statusCode: response.statusCode ?? kUnknownErrorCode,
-      data: response.data,
-      isSuccess: response.statusCode == 200,
-    );
+    try {
+      final response = await _dio.get(
+        endpoint,
+        queryParameters: queryParameters,
+      );
+      return ApiResponse(
+        statusCode: response.statusCode ?? kUnknownErrorCode,
+        data: response.data,
+        isSuccess: response.statusCode == 200,
+      );
+    } on DioException catch (e) {
+      throw ServerException(message: ErrorHandler.handleDioException(e));
+    }
   }
 
   //* ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

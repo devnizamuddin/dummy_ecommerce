@@ -4,51 +4,43 @@ import 'exception.dart';
 import 'failure.dart';
 
 class ErrorHandler {
-  //TODO: Handle all exceptionn with this method
-  //! Thsi is a unused
-  //! Error handling system.
+  const ErrorHandler._();
+
+  /// Maps a known [AppException] to the corresponding [Failure].
   static Failure handleException(AppException exception) {
     if (exception is ServerException) {
-      return ServerFailure(
-        message: exception.message,
-      );
+      return ServerFailure(message: exception.message);
     } else if (exception is CacheException) {
-      return CacheFailure(
-        message: exception.message,
-      );
+      return CacheFailure(message: exception.message);
     } else if (exception is ModelConversionException) {
-      return ModelConversionFailure(
-        message: exception.message,
-      );
-    } else if (exception is DioException) {
-      return DioFailure(
-        message: exception.message,
-      );
+      return ModelConversionFailure(message: exception.message);
+    } else if (exception is NetworkException) {
+      return NetworkFailure(message: exception.message);
     } else {
-      return UnknownFailure(
-        message: exception.message,
-      );
+      return UnknownFailure(message: exception.message);
     }
   }
 
+  /// Converts a [DioException] into a human-readable error message.
   static String handleDioException(DioException exception) {
     switch (exception.type) {
       case DioExceptionType.cancel:
-        return 'Request cancelled.';
+        return 'Request was cancelled.';
       case DioExceptionType.connectionTimeout:
-        return 'Connection timeout.';
+        return 'Connection timed out. Please check your internet.';
       case DioExceptionType.receiveTimeout:
-        return 'Receive timeout.';
+        return 'Server took too long to respond.';
       case DioExceptionType.sendTimeout:
-        return 'Send timeout.';
+        return 'Request timed out while sending data.';
       case DioExceptionType.badCertificate:
-        return 'Bad certificate.';
+        return 'Insecure connection detected.';
       case DioExceptionType.badResponse:
-        return 'Bad response.';
+        final code = exception.response?.statusCode;
+        return 'Server returned an error (status $code).';
       case DioExceptionType.connectionError:
-        return 'Connection error.';
+        return 'No internet connection.';
       case DioExceptionType.unknown:
-        return 'Unknown error.';
+        return 'An unexpected error occurred.';
     }
   }
 }

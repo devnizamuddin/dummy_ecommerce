@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/error_handler.dart';
+import '../../../../core/errors/exception.dart';
 import '../../../../core/errors/failure.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/repositories/category_repository.dart';
@@ -15,8 +17,8 @@ class CategoryRepositoryImpl implements CategoryRepository {
     try {
       final result = await remoteDataSource.getAllCategories();
       return Right(result.map((e) => e.toEntity()).toList());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 }

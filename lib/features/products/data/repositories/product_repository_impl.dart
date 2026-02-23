@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 
+import '../../../../core/errors/error_handler.dart';
+import '../../../../core/errors/exception.dart';
 import '../../../../core/errors/failure.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/product_repository.dart';
@@ -16,9 +17,8 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final result = await remoteDataSource.getAllProducts();
       return Right(result);
-    } catch (exception, stackTrace) {
-      debugPrint('Error: $exception, StackTrace: $stackTrace');
-      return Left(ServerFailure(message: 'Failed to get all products'));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -33,9 +33,8 @@ class ProductRepositoryImpl implements ProductRepository {
         limit: limit,
       );
       return Right(result);
-    } catch (exception, stackTrace) {
-      debugPrint('Error: $exception, StackTrace: $stackTrace');
-      return Left(ServerFailure(message: 'Failed to get paginated products'));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -46,9 +45,8 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final result = await remoteDataSource.getProductsByCategory(category);
       return Right(result);
-    } catch (exception, stackTrace) {
-      debugPrint('Error: $exception, StackTrace: $stackTrace');
-      return Left(ServerFailure(message: 'Failed to get products by category'));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 }

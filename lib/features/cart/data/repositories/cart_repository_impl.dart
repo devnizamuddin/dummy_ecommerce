@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
+
+import '../../../../core/errors/error_handler.dart';
+import '../../../../core/errors/exception.dart';
 import '../../../../core/errors/failure.dart';
 import '../../domain/entities/cart_entity.dart';
-
 import '../../domain/repositories/cart_repository.dart';
 import '../datasources/cart_local_data_source.dart';
 import '../models/cart_model.dart';
@@ -16,8 +18,8 @@ class CartRepositoryImpl implements CartRepository {
     try {
       final result = await remoteDataSource.getAllCartItems();
       return Right(result.map((e) => e.toEntity()).toList());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -34,8 +36,8 @@ class CartRepositoryImpl implements CartRepository {
         ),
       );
       return Right(result.map((e) => e.toEntity()).toList());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -52,8 +54,8 @@ class CartRepositoryImpl implements CartRepository {
         ),
       );
       return Right(result.map((e) => e.toEntity()).toList());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -70,8 +72,8 @@ class CartRepositoryImpl implements CartRepository {
         ),
       );
       return Right(result.map((e) => e.toEntity()).toList());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 
@@ -80,8 +82,8 @@ class CartRepositoryImpl implements CartRepository {
     try {
       await remoteDataSource.clearCart();
       return const Right(null);
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } on AppException catch (e) {
+      return Left(ErrorHandler.handleException(e));
     }
   }
 }

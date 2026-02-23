@@ -1,32 +1,25 @@
 # 🛒 DummyE-Commerce (Flutter)
 
-A simple yet well-structured E-commerce module built with Flutter, demonstrating API integration, state management, local persistence, and Clean Architecture principles.
+A streamlined E-commerce module built with **Clean Architecture** and **BLoC** state management, using the [DummyJSON](https://dummyjson.com) API.
 
-## Features
+## ✨ Features
 
-- Fetch Products from REST API.
-- Products Grid/List View.
-- Add / Remove Products from Cart (Local storage).
-- Cart Count Badge on AppBar.
-- Loading & Error State Handling.
-- Push Notification Receiving (Bonus).
+- Product Grid View
+- Category Horizontal List
+- Category Filtering
+- Infinite Scroll
+- Add to Cart
+- Remove from Cart
+- Update Cart
 
-## Tech Stack
+## 🛠️ Tech Stack
+- **Architecture**: CLEAN
+- **State Management**: flutter_bloc
+- **Dependency Injection**: get_it
+- **Networking**: Dio
+- **Local Storage**: shared_preferences
+- **Navigation**: go_router
 
-- Flutter (Dart).
-- State Management - Flutter Bloc.
-- Architecture - CLEAN.
-- Local Storage - Shared Preferences.
-- Push Notification - Firebase Cloud Messaging.
+## To download .apk file
 
-## APK Included for Manual Testing.
-
-## How to Run
-
-1. Clone the repository.
-2. Open the project in your preferred IDE.
-3. Run the app on an emulator or physical device.
-
-## License
-
-MIT License
+1. Go to `testing_apk/app-release.apk`
