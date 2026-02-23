@@ -29,7 +29,6 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
     final currentItems = await getAllCartItems();
     final index = currentItems.indexWhere((element) => element.id == cartItem.id);
     if (index >= 0) {
-      // If item exists, update its quantity
       currentItems[index] = currentItems[index].copyWith(
         quantity: currentItems[index].quantity + cartItem.quantity,
       );

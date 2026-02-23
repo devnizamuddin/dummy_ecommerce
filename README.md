@@ -1,8 +1,8 @@
-# 🛒 DummyE-Commerce (Flutter)
+#  Dummy-Commerce (Flutter)
 
 A streamlined E-commerce module built with **Clean Architecture** and **BLoC** state management, using the [DummyJSON](https://dummyjson.com) API.
 
-## ✨ Features
+## Features
 
 - Product Grid View
 - Category Horizontal List
@@ -12,7 +12,7 @@ A streamlined E-commerce module built with **Clean Architecture** and **BLoC** s
 - Remove from Cart
 - Update Cart
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Architecture**: CLEAN
 - **State Management**: flutter_bloc
 - **Dependency Injection**: get_it
@@ -22,4 +22,4 @@ A streamlined E-commerce module built with **Clean Architecture** and **BLoC** s
 
 ## To download .apk file
 
-1. Go to `testing_apk/app-release.apk`
+1. Go to [Download apk](testing_apk/app-release.apk)

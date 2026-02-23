@@ -15,7 +15,6 @@ class LocalStorageService {
     if (value is List<String>) {
       return await _preferences.setStringList(key, value);
     }
-    // Convert Map or objects to JSON String
     return await _preferences.setString(key, jsonEncode(value));
   }
 

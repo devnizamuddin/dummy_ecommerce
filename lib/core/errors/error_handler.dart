@@ -6,7 +6,6 @@ import 'failure.dart';
 class ErrorHandler {
   const ErrorHandler._();
 
-  /// Maps a known [AppException] to the corresponding [Failure].
   static Failure handleException(AppException exception) {
     if (exception is ServerException) {
       return ServerFailure(message: exception.message);
@@ -21,7 +20,6 @@ class ErrorHandler {
     }
   }
 
-  /// Converts a [DioException] into a human-readable error message.
   static String handleDioException(DioException exception) {
     switch (exception.type) {
       case DioExceptionType.cancel:
