@@ -36,7 +36,7 @@ class ApiCommunication {
   //* ┃                             GET Request                                ┃
   //* ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-  Future<ApiResponse<T>> doGetRequest<T>({
+  Future<ApiResponse> doGetRequest({
     required String endpoint,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -44,7 +44,7 @@ class ApiCommunication {
       endpoint,
       queryParameters: queryParameters,
     );
-    return ApiResponse<T>(
+    return ApiResponse(
       statusCode: response.statusCode ?? kUnknownErrorCode,
       data: response.data,
       isSuccess: response.statusCode == 200,

@@ -24,13 +24,13 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, List<ProductEntity>>> getPaginatedProducts({
-    int? limit,
     int? skip,
+    int? limit,
   }) async {
     try {
       final result = await remoteDataSource.getPaginatedProducts(
-        limit: limit,
         skip: skip,
+        limit: limit,
       );
       return Right(result);
     } catch (exception, stackTrace) {

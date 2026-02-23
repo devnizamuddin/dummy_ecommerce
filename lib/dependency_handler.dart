@@ -1,3 +1,4 @@
+import 'package:dummy_ecommerce/features/products/domain/usecases/get_product_category_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -80,5 +81,8 @@ void _initCategories() {
   );
   getIt.registerLazySingleton<CategoryRepository>(
     () => CategoryRepositoryImpl(remoteDataSource: getIt<CategoryRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton<GetProductCategoryUsecase>(
+    () => GetProductCategoryUsecase(repository: getIt<CategoryRepository>()),
   );
 }

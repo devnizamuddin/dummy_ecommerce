@@ -8,7 +8,7 @@ class MetaModel extends MetaEntity {
     required super.qrCode,
   });
 
-  factory MetaModel.fromJson(Map<String, dynamic> json) {
+  factory MetaModel.fromMap(Map<String, dynamic> json) {
     return MetaModel(
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
@@ -17,7 +17,7 @@ class MetaModel extends MetaEntity {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'createdAt': createdAt,
       'updatedAt': updatedAt,

@@ -13,15 +13,8 @@ final class ProductLoaded extends ProductState {
   ProductLoaded(this.products);
 }
 
-final class ProductCategoryLoaded extends ProductState {
-  final List<CategoryEntity> categories;
-
-  ProductCategoryLoaded(this.categories);
-}
-
 final class ProductError extends ProductState {
   final String message;
 
   ProductError(this.message);
 }
-

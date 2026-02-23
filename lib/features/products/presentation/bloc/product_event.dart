@@ -12,10 +12,6 @@ final class GetPaginatedProductsEvent extends ProductEvent {
   GetPaginatedProductsEvent({this.limit, this.skip});
 }
 
-final class GetProductCategoryEvent extends ProductEvent {
-  GetProductCategoryEvent();
-}
-
 final class GetProductsByCategoryEvent extends ProductEvent {
   final String category;
 

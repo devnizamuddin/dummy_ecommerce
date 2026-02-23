@@ -9,7 +9,7 @@ class ReviewModel extends ReviewEntity {
     required super.reviewerEmail,
   });
 
-  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+  factory ReviewModel.fromMap(Map<String, dynamic> json) {
     return ReviewModel(
       rating: json['rating'],
       comment: json['comment'],
@@ -19,7 +19,7 @@ class ReviewModel extends ReviewEntity {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'rating': rating,
       'comment': comment,

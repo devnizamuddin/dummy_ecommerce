@@ -1,7 +1,7 @@
-class ApiResponse<T> {
+class ApiResponse {
   final bool isSuccess;
   final int statusCode;
-  final T data;
+  final dynamic data;
 
   ApiResponse({
     required this.isSuccess,

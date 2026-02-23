@@ -7,7 +7,7 @@ class DimensionModel extends DimensionEntity {
     required super.depth,
   });
 
-  factory DimensionModel.fromJson(Map<String, dynamic> json) {
+  factory DimensionModel.fromMap(Map<String, dynamic> json) {
     return DimensionModel(
       width: json['width'],
       height: json['height'],
@@ -15,7 +15,7 @@ class DimensionModel extends DimensionEntity {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'width': width,
       'height': height,

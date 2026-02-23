@@ -1,9 +1,7 @@
-import '../../features/cart/presentation/pages/cart_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/products/presentation/bloc/product_bloc.dart';
+import '../../features/cart/presentation/pages/cart_page.dart';
 import '../../features/products/presentation/pages/product_page.dart';
 import 'error_route_page.dart';
 import 'route_path.dart';
@@ -22,18 +20,12 @@ class AppRouter {
       GoRoute(
         name: RoutePath.home,
         path: RoutePath.home,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProductBloc(),
-          child: const ProductPage(),
-        ),
+        builder: (context, state) => const ProductPage(),
       ),
       GoRoute(
         name: RoutePath.cart,
         path: RoutePath.cart,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProductBloc(),
-          child: const CartPage(),
-        ),
+        builder: (context, state) => const CartPage(),
       ),
     ],
   );

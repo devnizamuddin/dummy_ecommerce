@@ -7,7 +7,7 @@ class CategoryModel {
 
   CategoryModel({required this.slug, required this.name, required this.url});
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+  factory CategoryModel.fromMap(Map<String, dynamic> json) {
     return CategoryModel(
       slug: json['slug'],
       name: json['name'],
@@ -15,7 +15,7 @@ class CategoryModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'slug': slug,
       'name': name,

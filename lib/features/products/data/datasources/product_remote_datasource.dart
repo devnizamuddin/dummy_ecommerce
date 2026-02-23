@@ -1,5 +1,7 @@
-import '../../../../core/constant/api_endpoint.dart';
+import 'package:dummy_ecommerce/core/errors/exception.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../core/constant/api_endpoint.dart';
 import '../../../../core/services/api_communication.dart';
 import '../models/product_model.dart';
 
@@ -16,10 +18,18 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getAllProducts() async {
-    final response = await apiCommunication.doGetRequest<List<ProductModel>>(
+    final response = await apiCommunication.doGetRequest(
       endpoint: ApiEndpoint.products,
     );
-    return response.data;
+    try {
+      final List<ProductModel> products = ((response.data as Map<String, dynamic>)['products'] as List)
+          .map((mapData) => ProductModel.fromMap(mapData))
+          .toList();
+      return products;
+    } catch (exception, stackTrace) {
+      debugPrint('Error: $exception, StackTrace: $stackTrace');
+      throw ModelConversionException(message: 'Failed to parse products');
+    }
   }
 
   @override
@@ -27,19 +37,36 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
     int? limit,
     int? skip,
   }) async {
-    final response = await apiCommunication.doGetRequest<List<ProductModel>>(
+    final response = await apiCommunication.doGetRequest(
       endpoint: ApiEndpoint.products,
       queryParameters: {'limit': limit, 'skip': skip},
     );
-    return response.data;
+
+    try {
+      final List<ProductModel> products = ((response.data as Map<String, dynamic>)['products'] as List)
+          .map((mapData) => ProductModel.fromMap(mapData))
+          .toList();
+      return products;
+    } catch (exception, stackTrace) {
+      debugPrint('Error: $exception, StackTrace: $stackTrace');
+      throw ModelConversionException(message: 'Failed to parse products');
+    }
   }
 
   @override
   Future<List<ProductModel>> getProductsByCategory(String category) async {
-    final response = await apiCommunication.doGetRequest<List<ProductModel>>(
+    final response = await apiCommunication.doGetRequest(
       endpoint: ApiEndpoint.products,
       queryParameters: {'category': category},
     );
-    return response.data;
+    try {
+      final List<ProductModel> products = ((response.data as Map<String, dynamic>)['products'] as List)
+          .map((mapData) => ProductModel.fromMap(mapData))
+          .toList();
+      return products;
+    } catch (exception, stackTrace) {
+      debugPrint('Error: $exception, StackTrace: $stackTrace');
+      throw ModelConversionException(message: 'Failed to parse products');
+    }
   }
 }
