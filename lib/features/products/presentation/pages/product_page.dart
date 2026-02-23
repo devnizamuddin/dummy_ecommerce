@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:dummy_ecommerce/features/products/presentation/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -90,39 +91,20 @@ class _ProductPageState extends State<ProductPage> {
                         final category = isAll ? null : state.categories[index - 1];
                         final isSelected = state.selectedCategory?.slug == category?.slug;
 
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: RawChip(
-                            showCheckmark: false,
-                            label: Text(
-                              isAll ? 'All' : category!.name,
-                              style: TextStyle(
-                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                                color: isSelected ? Colors.white : Colors.black87,
-                              ),
-                            ),
-                            selected: isSelected,
-                            selectedColor: Theme.of(context).primaryColor,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              side: BorderSide(
-                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade300,
-                              ),
-                            ),
-                            elevation: isSelected ? 2 : 0,
-                            pressElevation: 0,
-                            onPressed: () {
-                              if (!isSelected) {
-                                context.read<CategoryBloc>().add(SelectCategoryEvent(category));
-                                if (isAll) {
-                                  context.read<ProductBloc>().add(GetPaginatedProductsEvent(limit: 10, skip: 0));
-                                } else {
-                                  context.read<ProductBloc>().add(GetProductsByCategoryEvent(category: category!.slug));
-                                }
+                        return CategoryChip(
+                          isAll: isAll,
+                          category: category,
+                          isSelected: isSelected,
+                          onPressed: () {
+                            if (!isSelected) {
+                              context.read<CategoryBloc>().add(SelectCategoryEvent(category));
+                              if (isAll) {
+                                context.read<ProductBloc>().add(GetPaginatedProductsEvent(limit: 10, skip: 0));
+                              } else {
+                                context.read<ProductBloc>().add(GetProductsByCategoryEvent(category: category!.slug));
                               }
-                            },
-                          ),
+                            }
+                          },
                         );
                       },
                     ),

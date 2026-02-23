@@ -56,8 +56,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   @override
   Future<List<ProductModel>> getProductsByCategory(String category) async {
     final response = await apiCommunication.doGetRequest(
-      endpoint: ApiEndpoint.products,
-      queryParameters: {'category': category},
+      endpoint: '${ApiEndpoint.products}/category/$category',
     );
     try {
       final List<ProductModel> products = ((response.data as Map<String, dynamic>)['products'] as List)
