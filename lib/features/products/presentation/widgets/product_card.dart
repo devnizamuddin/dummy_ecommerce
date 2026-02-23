@@ -91,36 +91,112 @@ class ProductCard extends StatelessWidget {
                       '\$${product.price.toStringAsFixed(2)}',
                       style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.green),
                     ),
-                    InkWell(
-                      onTap: () {
-                        context.read<CartBloc>().add(
-                          AddToCartEvent(
-                            cartItem: CartEntity(
-                              id: product.id,
-                              title: product.title,
-                              image: product.thumbnail,
-                              quantity: 1,
-                              price: product.price,
+                    BlocBuilder<CartBloc, CartState>(
+                      buildWhen: (previous, current) => current is CartLoaded,
+                      builder: (context, state) {
+                        CartEntity? cartItem;
+                        if (state is CartLoaded) {
+                          cartItem = state.cartItems.where((e) => e.id == product.id).firstOrNull;
+                        } else {
+                          final blocState = context.read<CartBloc>().state;
+                          if (blocState is CartLoaded) {
+                            cartItem = blocState.cartItems.where((e) => e.id == product.id).firstOrNull;
+                          }
+                        }
+
+                        if (cartItem != null) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Theme.of(context).primaryColor),
                             ),
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('${product.title} added to cart!'),
-                            duration: const Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (cartItem!.quantity > 1) {
+                                      context.read<CartBloc>().add(
+                                        UpdateCartItemEvent(
+                                          cartItem: CartEntity(
+                                            id: product.id,
+                                            title: product.title,
+                                            image: product.thumbnail,
+                                            price: product.price,
+                                            quantity: -1,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      context.read<CartBloc>().add(RemoveFromCartEvent(cartItem: cartItem));
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    child: Icon(Icons.remove, size: 16, color: Theme.of(context).primaryColor),
+                                  ),
+                                ),
+                                Text(
+                                  '${cartItem.quantity}',
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    context.read<CartBloc>().add(
+                                      UpdateCartItemEvent(
+                                        cartItem: CartEntity(
+                                          id: product.id,
+                                          title: product.title,
+                                          image: product.thumbnail,
+                                          price: product.price,
+                                          quantity: 1,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    child: Icon(Icons.add, size: 16, color: Theme.of(context).primaryColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        return InkWell(
+                          onTap: () {
+                            context.read<CartBloc>().add(
+                              AddToCartEvent(
+                                cartItem: CartEntity(
+                                  id: product.id,
+                                  title: product.title,
+                                  image: product.thumbnail,
+                                  quantity: 1,
+                                  price: product.price,
+                                ),
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('${product.title} added to cart!'),
+                                duration: const Duration(seconds: 1),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.add_shopping_cart, color: Colors.white, size: 20),
                           ),
                         );
                       },
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(Icons.add_shopping_cart, color: Colors.white, size: 20),
-                      ),
                     ),
                   ],
                 ),

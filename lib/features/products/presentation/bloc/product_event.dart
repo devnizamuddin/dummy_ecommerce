@@ -17,3 +17,5 @@ final class GetProductsByCategoryEvent extends ProductEvent {
 
   GetProductsByCategoryEvent({required this.category});
 }
+
+final class LoadMoreProductsEvent extends ProductEvent {}

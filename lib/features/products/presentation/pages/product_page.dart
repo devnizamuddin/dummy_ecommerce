@@ -18,16 +18,39 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_onScroll);
     context.read<ProductBloc>().add(GetPaginatedProductsEvent(limit: 10, skip: 0));
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      context.read<ProductBloc>().add(LoadMoreProductsEvent());
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SliverAppBar(
             title: const Text(
@@ -124,19 +147,30 @@ class _ProductPageState extends State<ProductPage> {
               } else if (state is ProductLoaded) {
                 return SliverPadding(
                   padding: const EdgeInsets.all(16.0),
-                  sliver: SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 250,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      childAspectRatio: 0.70, // Adjust for the image+content
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ProductCard(product: state.products[index]);
-                      },
-                      childCount: state.products.length,
-                    ),
+                  sliver: SliverMainAxisGroup(
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 250,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: 0.70, // Adjust for the image+content
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return ProductCard(product: state.products[index]);
+                          },
+                          childCount: state.products.length,
+                        ),
+                      ),
+                      if (state.isFetchingMore)
+                        const SliverToBoxAdapter(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 24.0),
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                        ),
+                    ],
                   ),
                 );
               } else if (state is ProductError) {
